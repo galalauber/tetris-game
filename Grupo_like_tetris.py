@@ -29,7 +29,6 @@ while True:
     cor_fundo = (0,0,0)
     tt.limpa_matriz(cor_fundo)
     
-    
         
     
     #Pré-ocupa algumas linhas parcialmente
@@ -46,10 +45,18 @@ while True:
     bloco = tt.cria_bloco([6,12],0,(15,15,0))
     tt.desenha_bloco(bloco)    
     
+    
+    #cria uma matriz que armazena o tipo de bloco e a cor do bloco    
+    matriz_bloco_cor = [[0,1,2,3,4,5,6] , [(15,15,0), (30,30,0), (45,45,0), (55,55,0), (65,65,0), (75,75,0), (85,85,0)]]
+    
     while True:
         X = random.randint(0,5)
-        #1-Cria um novo bloco
-        bloco = tt.cria_bloco([5,0],X,(15,15,0))
+        #1-Cria um novo bloco de forma aleatória
+        bloco = tt.cria_bloco([5,0],matriz_bloco_cor[X][X],matriz_bloco_cor[X][X+1])
+        
+        #Rotaciona a peça de forma aleatória antes de mostrar na tela
+        Y = random.randint(1,3)
+        rotacionar(Y,bloco)
         
         #2-Teste se a posição já está ocupada
         if tt.testa_ocupacao(bloco, (0,0,0)) == False:
@@ -120,24 +127,29 @@ while True:
             
             #Botão de rotação
             if botaoRot.value() == 0:
-                print('botaoRot = 0')
-                #Apaga o bloco
-                tt.apaga_bloco(bloco, (0,0,0))
-                #Rotaciona o bloco
-                bloco2 = tt.rotaciona_bloco(bloco)
-                #Faz ajuste de posição (testa se o bloco ficou partido em duas partes após
-                #rotacionar ou deslocar)
-                bloco2 = tt.ajusta_posicao_bloco(bloco2)
-                #Testa
-                if tt.testa_ocupacao(bloco2, cor_fundo) == False:
-                    #Desenha bloco2
-                    tt.desenha_bloco(bloco2)
-                    #Atualiza o bloco1
-                    bloco = bloco2
-                else:
-                    #Desenha bloco1
-                    tt.desenha_bloco(bloco)
+                rotacionar(1,bloco)            
         
         #4-Verifica o preenchimento de linhas
         tt.testa_preenchimento_linha(cor_fundo)
      #'''
+     
+def rotacionar(qtdVezes, bloco):
+    while qtdVezes > 0:
+        print('botaoRot = 0')
+        #Apaga o bloco
+        tt.apaga_bloco(bloco, (0,0,0))
+        #Rotaciona o bloco
+        bloco2 = tt.rotaciona_bloco(bloco)
+        #Faz ajuste de posição (testa se o bloco ficou partido em duas partes após
+        #rotacionar ou deslocar)
+        bloco2 = tt.ajusta_posicao_bloco(bloco2)
+        #Testa
+        if tt.testa_ocupacao(bloco2, cor_fundo) == False:
+            #Desenha bloco2
+            tt.desenha_bloco(bloco2)
+            #Atualiza o bloco1
+            bloco = bloco2
+        else:
+            #Desenha bloco1
+            tt.desenha_bloco(bloco)
+        qtdVezes--
