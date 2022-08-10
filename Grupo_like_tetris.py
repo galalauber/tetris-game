@@ -52,15 +52,14 @@ while True:
     while True:
         X = random.randint(0,5)
         #1-Cria um novo bloco de forma aleatória
-        bloco = tt.cria_bloco([5,0],matriz_bloco_cor[X][X],matriz_bloco_cor[X][X+1])
+        bloco = tt.cria_bloco([5,0],matriz_bloco_cor[X][0],matriz_bloco_cor[X][1])
         
         #Rotaciona a peça de forma aleatória antes de mostrar na tela
         Y = random.randint(1,3)
-        rotacionar(Y,bloco)
         
         #2-Teste se a posição já está ocupada
         if tt.testa_ocupacao(bloco, (0,0,0)) == False:
-            tt.desenha_bloco(bloco)
+            rotacionar(Y,bloco)
             time.sleep_ms(1000)
         else:
             print('FIM DO JOGO')
