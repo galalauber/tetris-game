@@ -11,6 +11,7 @@ import machine
 import sys
 from like_tetris import like_tetris
 from machine import Pin
+import random
 
 botaoEsq = Pin(34, Pin.IN, Pin.PULL_UP) #Pull-up interno não funcionou
 botaoDir = Pin(21, Pin.IN, Pin.PULL_UP)
@@ -241,8 +242,8 @@ while True:
     
     while True:
         #1-Cria um novo bloco
-        bloco = tt.cria_bloco([5,0],0,(15,15,0))
-        
+        X = random.randint(0,6)
+        bloco = tt.cria_bloco([5,0],X,(15,15,0))
         #2-Teste se a posição já está ocupada
         if tt.testa_ocupacao(bloco, (0,0,0)) == False:
             tt.desenha_bloco(bloco)
